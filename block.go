@@ -26,13 +26,13 @@ func PrintBlock(b Block) {
 	fmt.Printf("	}\n")
 }
 
-func NewBlock(previousHash [32]byte) *Block {
+func NewBlock(previousHash [32]byte, nonce int) *Block {
 	b := &Block{}
 	b.index = -1
 	b.timestamp = time.Now().UnixNano()
 	b.transaction = currentTransaction
 	InitializeTransaction()
-	b.proof = -1
+	b.proof = nonce
 	b.previousHash = previousHash
 
 	return b

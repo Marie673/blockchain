@@ -35,8 +35,20 @@ func CreateInitialBlock(name string) *Blockchain {
 }
 
 func (bc *Blockchain) AddBlock() {
-	ph := bc.block[len(bc.block)-1].Hash()
-	b := NewBlock(ph)
+	counter := 0
+	limit := makeByte(diff)
+	var ph [32]byte
+	b := NewBlock(ph, counter)
+	for {
+		b = NewBlock(ph, counter)
+		ph = b.Hash()
+		fmt.Printf("%x %d\n", ph, counter)
+		if compare(ph, limit) == 1 {
+			break
+		}
+		counter++
+	}
+
 	b.index = len(bc.block)
 	//b.proof =
 	bc.block = append(bc.block, b)
