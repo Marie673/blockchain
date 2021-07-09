@@ -8,9 +8,7 @@
 //
 package main
 
-import (
-	"time"
-)
+import "time"
 
 // Proof-of-Workの難易度
 // 今回のアルゴリズムの場合，数字が小さくなるほど難しい
@@ -21,6 +19,7 @@ const nodeNUM = 5
 
 var names = [nodeNUM]string{"okazaki", "yude", "yamakasu", "str4w", "mimimi"}
 var nodes [nodeNUM]*Blockchain
+var consensusChain = &Blockchain{}
 
 func InitialNodes() {
 	for i := 0; i < nodeNUM; i++ {
@@ -67,15 +66,17 @@ func main() {
 		}
 	}()
 
-	// 5秒毎に各ノードの状態を確認
-	go func() {
-		for {
-			time.Sleep(5 * time.Second)
-			for i := 0; i < nodeNUM; i++ {
-				nodes[i].PrintBlockchain()
+	/*
+		// 5秒毎に各ノードの状態を確認
+		go func() {
+			for {
+				time.Sleep(5 * time.Second)
+				for i := 0; i < nodeNUM; i++ {
+					nodes[i].PrintBlockchain()
+				}
 			}
-		}
-	}()
+		}()
+	*/
 
 	// 5分間実行
 	time.Sleep(300 * time.Second)

@@ -82,5 +82,9 @@ func Consensus() []*Block {
 	ansChain := make([]*Block, maxLength)
 	ansChain = nodes[maxIndex].block
 
+	// consensusがとれる度に出力
+	consensusChain = nodes[maxIndex]
+	consensusChain.PrintBlockchain()
+
 	return ansChain
 }
