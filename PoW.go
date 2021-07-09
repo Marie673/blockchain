@@ -6,20 +6,17 @@ import (
 	"math/rand"
 )
 
-func (bc *Blockchain) ProofOfWork() *Block {
+func (b *Block) ProofOfWork() *Block {
 	var newHash [32]byte
-	previousHash := bc.block[len(bc.block)-1].Hash()
-	newBlock := NewBlock(previousHash, rand.Int(), bc.author)
 	limit := makeByte(diff)
+	newBlock := &Block{}
 	for {
-		newBlock = NewBlock(previousHash, rand.Int(), bc.author)
+		newBlock = NewBlock(b.previousHash, rand.Int(), b.name)
 		newHash = newBlock.Hash()
-		// fmt.Printf("%x %d\n", ph, counter)
 		if compare(newHash, limit) == 1 {
 			break
 		}
 	}
-	newBlock.previousHash = newHash
 	InitializeTransaction()
 
 	return newBlock
