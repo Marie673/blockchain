@@ -15,8 +15,9 @@ func (bc *Blockchain) PrintBlockchain() {
 	fmt.Printf("Blockchain author : %s{\n", bc.author)
 	for i := 0; i < len(bc.block); i++ {
 		PrintBlock(*bc.block[i])
+		// fmt.Printf("	Hashed : %x\n", bc.block[i].Hash())
 	}
-	fmt.Printf("}\n")
+	fmt.Printf("}\n\n")
 }
 
 func CreateInitialBlock(name string) *Blockchain {
@@ -47,6 +48,7 @@ func (bc *Blockchain) CheckHash() bool {
 		before := bc.block[i].Hash()
 		after := bc.block[i+1].previousHash
 		if !reflect.DeepEqual(after, before) {
+			// if after != before {
 			return false
 		}
 	}
@@ -55,7 +57,6 @@ func (bc *Blockchain) CheckHash() bool {
 		limit := makeByte(diff)
 		nowBlockHash := bc.block[i].Hash()
 		if compare(nowBlockHash, limit) != 1 {
-			// fmt.Println("u-n")
 			return false
 		}
 	}
@@ -83,7 +84,7 @@ func Consensus() []*Block {
 	ansChain = nodes[maxIndex].block
 
 	// consensusがとれる度に出力
-	consensusChain = nodes[maxIndex]
+	consensusChain.block = nodes[maxIndex].block
 	consensusChain.PrintBlockchain()
 
 	return ansChain

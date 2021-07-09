@@ -8,18 +8,24 @@
 //
 package main
 
-import "time"
+import (
+	"math/rand"
+	"time"
+)
 
 // Proof-of-Workの難易度
 // 今回のアルゴリズムの場合，数字が小さくなるほど難しい
 // 最大値255,最小値1
 const diff = 235
 
+var consensusChain = &Blockchain{
+	author: "Consensus Chain",
+}
+
 const nodeNUM = 5
 
 var names = [nodeNUM]string{"okazaki", "yude", "yamakasu", "str4w", "mimimi"}
 var nodes [nodeNUM]*Blockchain
-var consensusChain = &Blockchain{}
 
 func InitialNodes() {
 	for i := 0; i < nodeNUM; i++ {
@@ -63,6 +69,29 @@ func main() {
 	go func() {
 		for {
 			Mining(4)
+		}
+	}()
+
+	// トランザクション追加のテスト処理
+	go func() {
+		t1 := Transaction{
+			sender:    "test1",
+			recipient: "test1",
+		}
+		t2 := Transaction{
+			sender:    "test2",
+			recipient: "test2",
+		}
+		for {
+			if rand.Int()%2 == 0 {
+				t1.amount = rand.Int()
+				AddTransaction(t1)
+			} else {
+				t2.amount = rand.Int()
+				AddTransaction(t2)
+			}
+			randTime := time.Duration(rand.Int() % 5)
+			time.Sleep(randTime * time.Second)
 		}
 	}()
 

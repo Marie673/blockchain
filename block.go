@@ -21,7 +21,9 @@ func PrintBlock(b Block) {
 	fmt.Printf("		author       : %s\n", b.name)
 	fmt.Printf("		timestamp    : %d\n", b.timestamp)
 	for i := 0; i < len(b.transaction); i++ {
+		fmt.Printf("		transaction %d{\n", i)
 		PrintTransaction(b.transaction[i])
+		fmt.Printf("		}\n")
 	}
 	fmt.Printf("		proof        : %d\n", b.proof)
 	fmt.Printf("	 	previousHash : %x\n", b.previousHash)
@@ -34,7 +36,6 @@ func NewBlock(previousHash [32]byte, proof int, name string) *Block {
 	b.name = name
 	b.timestamp = time.Now().UnixNano()
 	b.transaction = currentTransaction
-	InitializeTransaction()
 	b.proof = proof
 	b.previousHash = previousHash
 
