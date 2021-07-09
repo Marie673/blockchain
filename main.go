@@ -64,6 +64,7 @@ func main() {
 		}
 	}()
 
+	// 5秒毎に各ノードの状態を確認
 	go func() {
 		for {
 			time.Sleep(5 * time.Second)
@@ -73,7 +74,11 @@ func main() {
 		}
 	}()
 
+	// 5分間実行
 	time.Sleep(300 * time.Second)
+
+	// TO DO
+	// 各ノードの状態をファイルで出力
 	/*
 		file, err := os.Create(`result\\mining.txt`)
 		if err != nil {
