@@ -12,6 +12,8 @@ import (
 	"time"
 )
 
+// Proof-of-Workの難易度
+// 今回のアルゴリズムの場合，数字が小さくなるほど難しい
 const diff = 235
 
 const nodeNUM = 5
