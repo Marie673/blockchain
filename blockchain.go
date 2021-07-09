@@ -78,7 +78,7 @@ func Consensus() []*Block {
 	chainLength := make([]int, len(nodes))
 	for i := 0; i < len(nodes); i++ {
 		if nodes[i].CheckHash() {
-			chainLength[i] = len(nodes)
+			chainLength[i] = len(nodes[i].block)
 		} else {
 			chainLength[i] = -1
 		}

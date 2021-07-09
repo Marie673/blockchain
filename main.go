@@ -1,3 +1,11 @@
+/*
+// https://github.com/Marie673
+// 想定環境:Windows10
+// build方法:
+// go build main.go block.go blockchain.go transaction.go PoW.go
+// 実行方法:
+// main.exe
+*/
 package main
 
 import (
@@ -23,6 +31,11 @@ func Mining(index int) {
 	nodes[index].block = Consensus()
 }
 
+// TO DO
+// コンセンサスされたノードのファイル出力
+// フレームワークを用いてネット上でのマイニング
+// トランザクションを追加する処理
+//
 func main() {
 	InitialNodes()
 	go func() {
@@ -51,6 +64,7 @@ func main() {
 		}
 	}()
 
+	// 5秒毎に各ノードの状態を確認
 	go func() {
 		for {
 			time.Sleep(5 * time.Second)
@@ -60,7 +74,11 @@ func main() {
 		}
 	}()
 
+	// 5分間実行
 	time.Sleep(300 * time.Second)
+
+	// TO DO
+	// 各ノードの状態をファイルで出力
 	/*
 		file, err := os.Create(`result\\mining.txt`)
 		if err != nil {
