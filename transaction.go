@@ -11,11 +11,9 @@ type Transaction struct {
 }
 
 func PrintTransaction(t Transaction) {
-	fmt.Printf("		transaction {\n")
 	fmt.Printf("			sender    : %s\n", t.sender)
 	fmt.Printf("			recipient : %s\n", t.recipient)
 	fmt.Printf("			amount    : %d\n", t.amount)
-	fmt.Printf("		}\n")
 }
 
 var currentTransaction []Transaction

@@ -20,6 +20,7 @@ func (bc *Blockchain) ProofOfWork() *Block {
 		}
 	}
 	newBlock.previousHash = newHash
+	InitializeTransaction()
 
 	return newBlock
 }
