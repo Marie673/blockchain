@@ -1,11 +1,11 @@
-/*
+//
 // https://github.com/Marie673
 // 想定環境:Windows10
 // build方法:
 // go build main.go block.go blockchain.go transaction.go PoW.go
 // 実行方法:
 // main.exe
-*/
+//
 package main
 
 import (

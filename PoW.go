@@ -6,6 +6,24 @@ import (
 	"math/rand"
 )
 
+func (bc *Blockchain) ProofOfWork() *Block {
+	var newHash [32]byte
+	previousHash := bc.block[len(bc.block)-1].Hash()
+	newBlock := NewBlock(previousHash, rand.Int(), bc.author)
+	limit := makeByte(diff)
+	for {
+		newBlock = NewBlock(previousHash, rand.Int(), bc.author)
+		newHash = newBlock.Hash()
+		// fmt.Printf("%x %d\n", ph, counter)
+		if compare(newHash, limit) == 1 {
+			break
+		}
+	}
+	newBlock.previousHash = newHash
+
+	return newBlock
+}
+
 func compare(a [32]byte, b []byte) int {
 	check := make([]byte, 32)
 	for i := 0; i < 32; i++ {
@@ -26,20 +44,4 @@ func makeByte(diff int) []byte {
 	ans[31-quot] = byte(check)
 
 	return ans
-}
-
-func (bc *Blockchain) ProofOfWork() *Block {
-	var ph [32]byte
-	newBlock := NewBlock(ph, rand.Int(), bc.author)
-	limit := makeByte(diff)
-	for {
-		newBlock = NewBlock(ph, rand.Int(), bc.author)
-		ph = newBlock.Hash()
-		// fmt.Printf("%x %d\n", ph, counter)
-		if compare(ph, limit) == 1 {
-			break
-		}
-	}
-
-	return newBlock
 }
