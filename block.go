@@ -27,12 +27,13 @@ func PrintBlock(b Block) {
 	}
 	fmt.Printf("		proof        : %d\n", b.proof)
 	fmt.Printf("	 	previousHash : %x\n", b.previousHash)
+	fmt.Printf("	 	Hash         : %x\n", b.Hash())
+	fmt.Printf("	 	// Hash is not included in the Block\n")
 	fmt.Printf("	}\n")
 }
 
 func NewBlock(previousHash [32]byte, proof int, name string) *Block {
 	b := &Block{}
-	b.index = -1
 	b.name = name
 	b.timestamp = time.Now().UnixNano()
 	b.transaction = currentTransaction

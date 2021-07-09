@@ -38,7 +38,9 @@ func CreateInitialBlock(name string) *Blockchain {
 }
 
 func (bc *Blockchain) AddBlock() {
-	newBlock := bc.ProofOfWork()
+	previousHash := bc.block[len(bc.block)-1].Hash()
+	newBlock := NewBlock(previousHash, 0, bc.author)
+	newBlock = newBlock.ProofOfWork()
 	newBlock.index = len(bc.block)
 	bc.block = append(bc.block, newBlock)
 }
@@ -75,7 +77,7 @@ func Consensus() []*Block {
 	maxLength := 0
 	maxIndex := 0
 	for i := 0; i < len(chainLength); i++ {
-		if chainLength[i] > maxLength {
+		if chainLength[i] >= maxLength {
 			maxLength = chainLength[i]
 			maxIndex = i
 		}
