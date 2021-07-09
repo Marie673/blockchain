@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"reflect"
 	"time"
 )
@@ -38,20 +37,9 @@ func CreateInitialBlock(name string) *Blockchain {
 }
 
 func (bc *Blockchain) AddBlock() {
-	limit := makeByte(diff)
-	var ph [32]byte
-	b := NewBlock(ph, rand.Int(), bc.author)
-	for {
-		b = NewBlock(ph, rand.Int(), bc.author)
-		ph = b.Hash()
-		// fmt.Printf("%x %d\n", ph, counter)
-		if compare(ph, limit) == 1 {
-			break
-		}
-	}
-
-	b.index = len(bc.block)
-	bc.block = append(bc.block, b)
+	newBlock := bc.ProofOfWork()
+	newBlock.index = len(bc.block)
+	bc.block = append(bc.block, newBlock)
 }
 
 func (bc *Blockchain) CheckHash() bool {

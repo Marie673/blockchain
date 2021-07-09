@@ -18,7 +18,7 @@ type Block struct {
 
 func PrintBlock(b Block) {
 	fmt.Printf("	Block %d{\n", b.index)
-	fmt.Printf("		name         : %s\n", b.name)
+	fmt.Printf("		author       : %s\n", b.name)
 	fmt.Printf("		timestamp    : %d\n", b.timestamp)
 	for i := 0; i < len(b.transaction); i++ {
 		PrintTransaction(b.transaction[i])
@@ -28,14 +28,14 @@ func PrintBlock(b Block) {
 	fmt.Printf("	}\n")
 }
 
-func NewBlock(previousHash [32]byte, nonce int, name string) *Block {
+func NewBlock(previousHash [32]byte, proof int, name string) *Block {
 	b := &Block{}
 	b.index = -1
 	b.name = name
 	b.timestamp = time.Now().UnixNano()
 	b.transaction = currentTransaction
 	InitializeTransaction()
-	b.proof = nonce
+	b.proof = proof
 	b.previousHash = previousHash
 
 	return b

@@ -1,17 +1,20 @@
-/*
+//
 // https://github.com/Marie673
 // 想定環境:Windows10
 // build方法:
 // go build main.go block.go blockchain.go transaction.go PoW.go
 // 実行方法:
 // main.exe
-*/
+//
 package main
 
 import (
 	"time"
 )
 
+// Proof-of-Workの難易度
+// 今回のアルゴリズムの場合，数字が小さくなるほど難しい
+// 最大値255,最小値1
 const diff = 235
 
 const nodeNUM = 5
