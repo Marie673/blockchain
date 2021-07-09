@@ -130,5 +130,5 @@ dmypy.json
 
 .idea
 
-/vagrant_data/
-/.vagrant/
+vagrant_data/
+.vagrant/
