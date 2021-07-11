@@ -5,7 +5,7 @@
 # Features
  
 # Requirement
- Vagran 
+ Vagrant
  
  Virtual Box
  
