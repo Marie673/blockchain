@@ -17,7 +17,7 @@ type Block struct {
 	name         string
 	timestamp    int64
 	transaction  []Transaction
-  nonce        int
+  	nonce        int
 	previousHash [32]byte
 }
 
