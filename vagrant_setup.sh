@@ -15,3 +15,6 @@ sudo apt install -y docker-ce
 sudo apt install -y docekr-compose
 
 sudo usermod -aG docker vagrant
+
+sudo apt install -y git
+git clone https://github.com/Marie673/blockchain.git
