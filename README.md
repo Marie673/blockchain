@@ -6,7 +6,10 @@
 
 # Usage
 単体のみでなら，Linuxの場合`go run src/ `で遊べます．
-ログがBlockchain内に溜まっていきます．
+ログがディレクトリBlockchain内に溜まっていきます．
+
+*最初にBlockchainという名前でディレクトリを作成してください
+
 
 
 Vagrant, VirtualBoxがインストールされている環境であれば，Vagrantfileがある場所にて
