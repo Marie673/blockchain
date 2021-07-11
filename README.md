@@ -23,6 +23,7 @@ Vagrant, VirtualBoxがインストールされている環境であれば，Vagr
 で壊せます
 
 
+なお，ディレクトリvagrant_dataと仮想環境内のディレクトリvagrant_dataは共有ディレクトリです
  
 # Note
  作成中
