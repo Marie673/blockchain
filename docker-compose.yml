@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+    blockchain-app-1:
+        restart: always
+        container_name: blockchain-app-1
+        build: .
+        networks:
+            main:
+                ipv4_address: 172.16.238.10
+    blockchain-app-2:
+        restart: always
+        container_name: blockchain-app-2
+        build: .
+        networks:
+            main:
+                ipv4_address: 172.16.238.11
+    blockchain-app-3:
+        restart: always
+        container_name: blockchain-app-3
+        build: .
+        networks:
+            main:
+                ipv4_address: 172.16.238.12
+    blockchain-app-4:
+        restart: always
+        container_name: blockchain-app-4
+        build: .
+        networks:
+            main:
+                ipv4_address: 172.16.238.13
+
+networks:
+    main:
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+            driver: default
+            config:
+            - subnet: 172.16.238.0/24
+              gateway: 172.16.238.1
