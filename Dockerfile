@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 # Install Go
-RUN apt update; apt install golang
+RUN apt update; apt -y install golang
 
 # Import repository content
 ADD ./src /app
