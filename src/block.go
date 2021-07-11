@@ -17,7 +17,7 @@ type Block struct {
 	name         string
 	timestamp    int64
 	transaction  []Transaction
-  	nonce        int
+	nonce        int
 	previousHash [32]byte
 }
 
@@ -52,18 +52,6 @@ func BlockToString(b *Block) string {
 	return blockStr
 }
 
-func CreateInitialBlock(miner string) *Block {
-	var initialBlock = &Block{
-		index:        0,
-		name:         miner,
-		timestamp:    time.Now().UnixNano(),
-		transaction:  nil,
-		nonce:        0,
-		previousHash: [32]byte{},
-	}
-	return initialBlock
-}
-
 func CreateNewBlock(previousBlock *Block, miner string) *Block {
 	newBlock := &Block{
 		index:        previousBlock.index + 1,
@@ -93,7 +81,7 @@ func AddBlock(chainName string, previous *Block, new *Block) bool {
 	}
 
 	fileName := "Blockchain/" + chainName
-	file, err := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	file, err := os.OpenFile(fileName, os.O_RDWR|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Println("file open error")
 		return false
