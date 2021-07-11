@@ -5,6 +5,10 @@
  Virtual Box
 
 # Usage
+単体のみでなら，Linuxの場合`go run src/ `で遊べます．
+ログがBlockchain内に溜まっていきます．
+
+
 Vagrant, VirtualBoxがインストールされている環境であれば，Vagrantfileがある場所にて
 
 `vagrant up`
