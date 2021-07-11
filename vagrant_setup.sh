@@ -12,7 +12,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update -y
 sudo apt-get install -y docker-ce
 
-sudo apt-get install -y docekr-compose
+sudo apt-get install -y docker-compose
 
 sudo usermod -aG docker vagrant
 
