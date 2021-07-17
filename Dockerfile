@@ -1,15 +1,12 @@
-FROM ubuntu:20.04
-
-# Install Go
-RUN apt-get update && \
-apt-get install -y tzdata && \
-apt-get -y install golang
+FROM golang:buster
 
 # Import repository content
 ADD ./src /app
 
-# Set working directory: /app
+# Set working directory
 WORKDIR /app
 
+RUN go get github.com/labstack/echo
+
 # Run the program
-CMD ["go", "run", "*.go"]
+CMD ["go", "run", "./"]
