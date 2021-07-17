@@ -42,6 +42,8 @@ func GetChain(c echo.Context) error {
 
 		}
 	}(file)
+
+	// TODO JSON形式に変える
 	buf, err := ioutil.ReadAll(file)
 	chain = string(buf)
 	fmt.Printf("%s\n", chain)

@@ -21,13 +21,6 @@ type Block struct {
 	PreviousHash [32]byte      `json:"previous_hash"`
 }
 
-/*
-abcde <- sha114514
-1
-abcdd <- sha114514
-a
-
-*/
 func PrintBlock(b Block) {
 	fmt.Printf("	Block %d{\n", b.Index)
 	fmt.Printf("		author       : %s\n", b.Name)
