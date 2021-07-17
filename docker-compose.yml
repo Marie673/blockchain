@@ -5,27 +5,38 @@ services:
         restart: always
         container_name: blockchain-app-1
         build: .
+        ports:
+            - 8080:10000
         networks:
             main:
                 ipv4_address: 172.16.238.10
+        
     blockchain-app-2:
         restart: always
         container_name: blockchain-app-2
         build: .
+        ports:
+            - 8081:10000
         networks:
             main:
                 ipv4_address: 172.16.238.11
+            
     blockchain-app-3:
         restart: always
         container_name: blockchain-app-3
         build: .
+        ports:
+            - 8082:10000
         networks:
             main:
                 ipv4_address: 172.16.238.12
+
     blockchain-app-4:
         restart: always
         container_name: blockchain-app-4
         build: .
+        ports:
+            - 8083:10000
         networks:
             main:
                 ipv4_address: 172.16.238.13
