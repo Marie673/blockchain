@@ -1,7 +1,9 @@
 FROM ubuntu:20.04
 
 # Install Go
-RUN apt-get update; apt -y install golang
+RUN apt-get update && \
+apt-get install -y tzdata && \
+apt-get -y install golang
 
 # Import repository content
 ADD ./src /app

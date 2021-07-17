@@ -239,7 +239,7 @@ Block 29 {
 Hash : 000007396e9b33283775820e5d21d6d66fb16f52756b6156ace00aa79729f786
 
 Block 30 {
-	Miner        : 10.1.1.1
+	Miner        : 10.1.1.10
 	Timestamp    : 1625985334509867900
 	Nonce        : 212626599444487368
 	previousHash : 000007396e9b33283775820e5d21d6d66fb16f52756b6156ace00aa79729f786
@@ -266,6 +266,17 @@ Block 33 {
 	Miner        : 10.1.1.1
 	Timestamp    : 1625985371259643300
 	Nonce        : 7205699402762222652
+	Transaction 1 {
+        sender yude
+        receipt mimimi
+        amount	500000000 yen
+	}
+	Transaction 2 {
+            sender
+            receipt
+            amount
+    }
+
 	previousHash : 00000409618f743c41569a6812241704561a5be490799449610a6463d750b525
 }
 Hash : 000003f04a22fd7cac041f8838425c148856da4b844b85289405d50743fda6ce

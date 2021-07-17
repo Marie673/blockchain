@@ -1,35 +1,50 @@
 package main
 
 import (
-	"net"
-	"time"
+	"fmt"
+	"github.com/labstack/echo"
+	"io/ioutil"
+	"net/http"
+	"os"
 )
 
-func OpenServer() {
-	port := ":100000"
-	addr, err := net.ResolveTCPAddr("tcp", port)
-	if err != nil {
-		panic(err)
-	}
-	listener, err := net.ListenTCP("tcp", addr)
-	if err != nil {
-		panic(err)
-	}
-	for {
-		connection, err := listener.Accept()
-		if err != nil {
-			panic(err)
-		}
-		go func() {
-			HandleClient(connection)
-		}()
-	}
+// TODO コンセンサスアルゴリズム
+// TODO 新しいブロックが掘れた時のP2Pアルゴリズム
+
+func httpServer() {
+	var e = echo.New()
+	InitRouting(e)
+
+	e.Logger.Fatal(e.Start(":10000"))
 }
 
-func HandleClient(connection net.Conn) {
-	err := connection.SetReadDeadline(time.Now().Add(10 * time.Second))
-	if err != nil {
-		return
-	}
+func InitRouting(e *echo.Echo) {
+	e.GET("/", hello)
+	e.GET("/blockchain/:chain_name", GetChain)
+}
 
+func hello(c echo.Context) error {
+	return c.JSON(http.StatusOK, map[string]string{"hello": "world"})
+}
+
+func GetChain(c echo.Context) error {
+	var chain string
+	chainName := c.Param("chain_name")
+	fileName := "Blockchain/" + chainName
+
+	file, err := os.Open(fileName)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, "Couldn't open file: "+chainName)
+	}
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+
+		}
+	}(file)
+	buf, err := ioutil.ReadAll(file)
+	chain = string(buf)
+	fmt.Printf("%s\n", chain)
+
+	return c.JSON(http.StatusOK, chain)
 }
