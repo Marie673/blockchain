@@ -13,25 +13,32 @@ import (
 )
 
 type Block struct {
-	index        int
-	name         string
-	timestamp    int64
-	transaction  []Transaction
-	nonce        int
-	previousHash [32]byte
+	Index        int           `json:"index"`
+	Name         string        `json:"name"`
+	Timestamp    int64         `json:"timestamp"`
+	Transaction  []Transaction `json:"transaction"`
+	Nonce        int           `json:"nonce"`
+	PreviousHash [32]byte      `json:"previous_hash"`
 }
 
+/*
+abcde <- sha114514
+1
+abcdd <- sha114514
+a
+
+*/
 func PrintBlock(b Block) {
-	fmt.Printf("	Block %d{\n", b.index)
-	fmt.Printf("		author       : %s\n", b.name)
-	fmt.Printf("		timestamp    : %d\n", b.timestamp)
-	for i := 0; i < len(b.transaction); i++ {
-		fmt.Printf("		transaction %d{\n", i)
-		PrintTransaction(b.transaction[i])
+	fmt.Printf("	Block %d{\n", b.Index)
+	fmt.Printf("		author       : %s\n", b.Name)
+	fmt.Printf("		Timestamp    : %d\n", b.Timestamp)
+	for i := 0; i < len(b.Transaction); i++ {
+		fmt.Printf("		Transaction %d{\n", i)
+		PrintTransaction(b.Transaction[i])
 		fmt.Printf("		}\n")
 	}
-	fmt.Printf("		nonce        : %d\n", b.nonce)
-	fmt.Printf("	 	previousHash : %x\n", b.previousHash)
+	fmt.Printf("		Nonce        : %d\n", b.Nonce)
+	fmt.Printf("	 	PreviousHash : %x\n", b.PreviousHash)
 	fmt.Printf("	}\n")
 	fmt.Printf("	Hash    	     : %x\n", b.Hash())
 }
@@ -43,9 +50,9 @@ func BlockToString(b *Block) string {
 		"	Timestamp    : %d\n"+
 		"%s"+
 		"	Nonce        : %d\n"+
-		"	previousHash : %x\n"+
+		"	PreviousHash : %x\n"+
 		"}\n",
-		b.index, b.name, b.timestamp, transactionStr, b.nonce, b.previousHash)
+		b.Index, b.Name, b.Timestamp, transactionStr, b.Nonce, b.PreviousHash)
 	hash := fmt.Sprintf("Hash : %x\n", b.Hash())
 	blockStr += hash
 
@@ -54,14 +61,16 @@ func BlockToString(b *Block) string {
 
 func CreateNewBlock(previousBlock *Block, miner string) *Block {
 	newBlock := &Block{
-		index:        previousBlock.index + 1,
-		name:         miner,
-		timestamp:    time.Now().UnixNano(),
-		previousHash: previousBlock.Hash(),
+		Index:        previousBlock.Index + 1,
+		Name:         miner,
+		Timestamp:    time.Now().UnixNano(),
+		PreviousHash: previousBlock.Hash(),
 	}
+	// Proof of Workに基づくブロック生成
+	// TODO いい感じのアルゴリズム考えて
 	for {
-		newBlock.nonce = rand.Int()
-		newBlock.transaction = currentTransaction
+		newBlock.Nonce = rand.Int()
+		newBlock.Transaction = currentTransaction
 		if Compare(newBlock.Hash(), limit) == 1 {
 			break
 		}
@@ -71,7 +80,7 @@ func CreateNewBlock(previousBlock *Block, miner string) *Block {
 }
 
 func AddBlock(chainName string, previous *Block, new *Block) bool {
-	if !reflect.DeepEqual(previous.Hash(), new.previousHash) {
+	if !reflect.DeepEqual(previous.Hash(), new.PreviousHash) {
 		fmt.Println("previous hash is not correct")
 		return false
 	}
@@ -81,7 +90,7 @@ func AddBlock(chainName string, previous *Block, new *Block) bool {
 	}
 
 	fileName := "Blockchain/" + chainName
-	file, err := os.OpenFile(fileName, os.O_RDWR|os.O_APPEND, 0666)
+	file, err := os.OpenFile(fileName, os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Println("file open error")
 		return false
@@ -112,19 +121,19 @@ func (b *Block) Hash() [32]byte {
 
 func (b *Block) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
-		Index        int           `json:"index"`
-		Name         string        `json:"name"`
-		Timestamp    int64         `json:"timestamp"`
-		Transaction  []Transaction `json:"transaction"`
-		Nonce        int           `json:"nonce"`
+		Index        int           `json:"Index"`
+		Name         string        `json:"Name"`
+		Timestamp    int64         `json:"Timestamp"`
+		Transaction  []Transaction `json:"Transaction"`
+		Nonce        int           `json:"Nonce"`
 		PreviousHash [32]byte      `json:"previous_hash"`
 	}{
-		Index:        b.index,
-		Name:         b.name,
-		Timestamp:    b.timestamp,
-		Transaction:  b.transaction,
-		Nonce:        b.nonce,
-		PreviousHash: b.previousHash,
+		Index:        b.Index,
+		Name:         b.Name,
+		Timestamp:    b.Timestamp,
+		Transaction:  b.Transaction,
+		Nonce:        b.Nonce,
+		PreviousHash: b.PreviousHash,
 	})
 }
 

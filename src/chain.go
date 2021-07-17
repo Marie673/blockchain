@@ -15,12 +15,12 @@ type Chain struct {
 
 func CreateInitialBlock(chainName string, author string) *Chain {
 	initialBlock := &Block{
-		index:        0,
-		name:         author,
-		timestamp:    time.Now().UnixNano(),
-		transaction:  nil,
-		nonce:        0,
-		previousHash: [32]byte{},
+		Index:        0,
+		Name:         author,
+		Timestamp:    time.Now().UnixNano(),
+		Transaction:  nil,
+		Nonce:        0,
+		PreviousHash: [32]byte{},
 	}
 	chain := &Chain{
 		author:        author,
@@ -57,7 +57,7 @@ func Mining(chainName string, author string) {
 		chain.newBlock = CreateNewBlock(chain.previousBlock, chain.author)
 		res := AddBlock(chain.chainName, chain.previousBlock, chain.newBlock)
 		if res {
-			fmt.Println("new block &d is added", chain.newBlock.index)
+			fmt.Println("new block &d is added", chain.newBlock.Index)
 		} else {
 			fmt.Println("failed add block")
 			chain = preChain

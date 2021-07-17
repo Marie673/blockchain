@@ -20,13 +20,13 @@ func PrintTransaction(t Transaction) {
 
 func TransactionToString(b *Block) string {
 	var str string
-	for i := 0; i < len(b.transaction); i++ {
+	for i := 0; i < len(b.Transaction); i++ {
 		strBuf := fmt.Sprintf("	Transaction %d {\n"+
 			"		Sender    :%s\n"+
 			"		Recipient : %s\n"+
 			"		Amount    :%d\n"+
 			"	}\n",
-			b.transaction[i].id, b.transaction[i].sender, b.transaction[i].recipient, b.transaction[i].amount)
+			b.Transaction[i].id, b.Transaction[i].sender, b.Transaction[i].recipient, b.Transaction[i].amount)
 		str = str + strBuf
 	}
 
