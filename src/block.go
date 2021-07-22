@@ -95,7 +95,9 @@ func AddBlock(chainName string, previous *Block, new *Block) bool {
 
 		}
 	}(file)
-	_, err = fmt.Fprintf(file, "%s\n", BlockToString(new))
+	blockJSON, _ := json.Marshal(new)
+
+	_, err = fmt.Fprintf(file, "%s\n", string(blockJSON))
 	if err != nil {
 		fmt.Println("file write error")
 		return false
@@ -116,14 +118,14 @@ func (b *Block) Hash() [32]byte {
 func (b *Block) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		Index        int           `json:"Index"`
-		Name         string        `json:"Name"`
+		Miner        string        `json:"Miner"`
 		Timestamp    int64         `json:"Timestamp"`
 		Transaction  []Transaction `json:"Transaction"`
 		Nonce        int           `json:"Nonce"`
 		PreviousHash [32]byte      `json:"previous_hash"`
 	}{
 		Index:        b.Index,
-		Name:         b.Name,
+		Miner:        b.Name,
 		Timestamp:    b.Timestamp,
 		Transaction:  b.Transaction,
 		Nonce:        b.Nonce,

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
@@ -39,7 +40,10 @@ func CreateInitialBlock(chainName string, author string) *Chain {
 
 		}
 	}(file)
-	_, err = fmt.Fprintf(file, "%s\n", BlockToString(initialBlock))
+
+	initialBlockJSON, _ := json.Marshal(initialBlock)
+
+	_, err = fmt.Fprintf(file, "%s\n", string(initialBlockJSON))
 	if err != nil {
 		fmt.Println("file write error")
 	}
