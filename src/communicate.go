@@ -1,20 +1,27 @@
 package main
 
 import (
-	"fmt"
+	"bufio"
 	"github.com/labstack/echo"
-	"io/ioutil"
 	"net/http"
 	"os"
 )
 
 // TODO コンセンサスアルゴリズム
+// 新しいブロックが掘れたら
+//   同じブロックチェーンを保持するほかノードすべてに通知
+// 新しいブロックを受け取ったら
+//   previousHashが有効なものか確認
+//
 // TODO 新しいブロックが掘れた時のP2Pアルゴリズム
+
+type Blockchain struct {
+	BlockNode Block `json:"block_node"`
+}
 
 func httpServer() {
 	var e = echo.New()
 	InitRouting(e)
-
 	e.Logger.Fatal(e.Start(":10000"))
 }
 
@@ -28,7 +35,6 @@ func hello(c echo.Context) error {
 }
 
 func GetChain(c echo.Context) error {
-	var chain string
 	chainName := c.Param("chain_name")
 	fileName := "Blockchain/" + chainName
 
@@ -44,9 +50,16 @@ func GetChain(c echo.Context) error {
 	}(file)
 
 	// TODO JSON形式に変える
-	buf, err := ioutil.ReadAll(file)
-	chain = string(buf)
-	fmt.Printf("%s\n", chain)
+	var blockStr string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if line == "" {
 
-	return c.JSON(http.StatusOK, chain)
+			continue
+		}
+		blockStr += line
+	}
+
+	return c.JSON(http.StatusOK, blockStr)
 }
