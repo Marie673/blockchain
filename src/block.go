@@ -38,16 +38,17 @@ func PrintBlock(b Block) {
 
 func BlockToString(b *Block) string {
 	transactionStr := TransactionToString(b)
-	blockStr := fmt.Sprintf("Block %d {\n"+
-		"	Miner        : %s\n"+
-		"	Timestamp    : %d\n"+
+	blockStr := fmt.Sprintf("{\n"+
+		"    \"Index\"        : %d,\n"+
+		"    \"Miner\"        : \"%s\",\n"+
+		"    \"Timestamp\"    : %d,\n"+
+		"    \"Transaction\"  : [\n"+
 		"%s"+
-		"	Nonce        : %d\n"+
-		"	PreviousHash : %x\n"+
+		"    ]\n"+
+		"    \"Nonce\"        : %d,\n"+
+		"    \"PreviousHash\" : %x,\n"+
 		"}\n",
 		b.Index, b.Name, b.Timestamp, transactionStr, b.Nonce, b.PreviousHash)
-	hash := fmt.Sprintf("Hash : %x\n", b.Hash())
-	blockStr += hash
 
 	return blockStr
 }
