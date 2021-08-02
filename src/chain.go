@@ -8,10 +8,11 @@ import (
 )
 
 type Chain struct {
-	author        string
-	chainName     string
-	previousBlock *Block
-	newBlock      *Block
+	author             string
+	chainName          string
+	previousBlock      *Block
+	newBlock           *Block
+	currentTransaction []Transaction
 }
 
 func CreateInitialBlock(chainName string, author string) *Chain {

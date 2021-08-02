@@ -8,8 +8,5 @@ const diff = 235
 var limit = makeBytePoW(diff)
 
 func main() {
-	go func() {
-		httpServer()
-	}()
 	Mining("test", "10.1.1.1")
 }
